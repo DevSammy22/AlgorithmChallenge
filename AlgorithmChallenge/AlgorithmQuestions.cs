@@ -55,6 +55,128 @@ namespace AlgorithmChallenge
             }
             return result;
         }
-       
+
+        //Write a method, that will get an integer array as parameter and will process every number from this array.
+
+        //Return a new array with processing every number of the input-array like this:
+
+        //If the number has an integer square root, take this, otherwise square the number.
+
+        //Example
+        //[4, 3, 9, 7, 2, 1] -> [2,9,3,49,4,1]
+        //Notes
+        //The input array will always contain only positive numbers, and will never be empty or null.
+
+        public static int[] SquareOrSquareRoot(int[] array)
+        {
+            List<int> result = new List<int>();
+            for (int i = 0; i < array.Length; i++)
+            {
+                var number = array[i];
+                if (Math.Sqrt(number) == (int)Math.Sqrt(number))
+                {
+                    result.Add((int)Math.Sqrt(number));
+                }
+                else
+                {
+                    result.Add((int)Math.Pow(number, 2));
+                }
+            }
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// alternative solution
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static int[] SquareOrSquareRoot2(int[] array)
+        {
+            int[] result = new int[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                var number = array[i];
+                if (Math.Sqrt(number) == (int)Math.Sqrt(number))
+                {
+                    result[i] = (int)Math.Sqrt(number);
+                }
+                else
+                {
+                    result[i] = (int)(Math.Pow(number, 2));
+                }
+            }
+            return result;
+        }
+
+        //Write a function that takes in a string of one or more words, and returns the same string, but with all five or more letter words reversed(Just like the name of this Kata).
+        //Strings passed in will consist of only letters and spaces.Spaces will be included only when more than one word is present.
+        //Examples:
+        //spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw".
+        //spinWords( "This is a test") => returns "This is a test"
+        //spinWords( "This is another test" ) => returns "This is rehtona test"
+        public static string SpinWords(string sentence)
+        {
+            string result = "";
+            var array = sentence.Split(' ');
+            foreach (var item in array)
+            {
+                if (item.Length <= 4)
+                {
+                    result += item;
+                    result += " ";
+                }
+                else
+                {
+                    for (int i = item.Length - 1; i >= 0; i--)
+                    {
+                        result += item[i];
+                    }
+                    result += " ";
+                }
+            }
+            return result.Trim();
+        }
+
+
+        //A palindrome is a word, phrase, number, or other sequence of characters which reads the same backward or forward.
+        //This includes capital letters, punctuation, and word dividers.
+        //Implement a function that checks if something is a palindrome. If the input is a number, convert it to string first.
+
+
+        public static bool IsPalindrome(object line)
+        {
+            var initial = line.ToString().ToLower();
+            var final = "";
+            for (int i = initial.Length - 1; i >= 0; i--)
+            {
+                final += initial[i];
+            }
+
+            return final == initial;
+        }
+
+        /// <summary>
+        /// Alternative solutions
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public static bool IsPalindrome2(object line)
+        {
+            var initial = line.ToString().ToLower();
+            var final = "";
+            for (int i = initial.Length - 1; i >= 0; i--)
+            {
+                final += initial[i];
+            }
+
+            if (final == initial)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
