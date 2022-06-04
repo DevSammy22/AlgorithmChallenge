@@ -9,40 +9,40 @@ namespace AlgorithmChallenge
     public static class AlgorithmQuestions
     {
 
-    //    Digital Cypher assigns to each letter of the alphabet unique number.For example:
-    //     a  b  c  d  e  f  g  h  i  j  k  l  m
-    //     1  2  3  4  5  6  7  8  9  10 11 12 13
-    //     n o  p  q  r  s  t  u  v  w   x  y z
-    //    14 15 16 17 18 19 20 21 22 23 24 25 26
+        //    Digital Cypher assigns to each letter of the alphabet unique number.For example:
+        //     a  b  c  d  e  f  g  h  i  j  k  l  m
+        //     1  2  3  4  5  6  7  8  9  10 11 12 13
+        //     n o  p  q  r  s  t  u  v  w   x  y z
+        //    14 15 16 17 18 19 20 21 22 23 24 25 26
 
-    //   Instead of letters in encrypted word we write the corresponding number, eg.The word scout:
-    //      s   c  o   u   t
-    //      19  3  15  21  20
+        //   Instead of letters in encrypted word we write the corresponding number, eg.The word scout:
+        //      s   c  o   u   t
+        //      19  3  15  21  20
 
-    //  Then we add to each obtained digit consecutive digits from the key.For example.In case of key equal to 1939 :
-    //      s   c  o  u   t
-    //      19  3 15  21  20
-    //    + 1  9  3   9   1
-    //      ---------------
-    //      20 12 18 30 21
+        //  Then we add to each obtained digit consecutive digits from the key.For example.In case of key equal to 1939 :
+        //      s   c  o  u   t
+        //      19  3 15  21  20
+        //    + 1  9  3   9   1
+        //      ---------------
+        //      20 12 18 30 21
 
-    //       m  a  s  t  e  r  p  i   e  c  e
-    //       13  1 19 20  5 18 16  9  5  3  5
-    //     + 1  9  3  9  1  9  3  9  1   9  3
-    //      -----------------------------------
-    //       14 10 22 29  6 27 19 18  6  12 8
+        //       m  a  s  t  e  r  p  i   e  c  e
+        //       13  1 19 20  5 18 16  9  5  3  5
+        //     + 1  9  3  9  1  9  3  9  1   9  3
+        //      -----------------------------------
+        //       14 10 22 29  6 27 19 18  6  12 8
 
 
-    //      Task
-    //Write a function that accepts str string and key number and returns an array of integers representing encoded str.
+        //      Task
+        //Write a function that accepts str string and key number and returns an array of integers representing encoded str.
 
-    //Input / Output
-    //The str input string consists of lowercase characters only.
-    //The key input number is a positive integer.
-    //Example:
-    //      Encode("scout",1939);  ==>  [ 20, 12, 18, 30, 21]
-    //      Encode("masterpiece",1939);  ==>  [ 14, 10, 22, 29, 6, 27, 19, 18, 6, 12, 8]
-        
+        //Input / Output
+        //The str input string consists of lowercase characters only.
+        //The key input number is a positive integer.
+        //Example:
+        //      Encode("scout",1939);  ==>  [ 20, 12, 18, 30, 21]
+        //      Encode("masterpiece",1939);  ==>  [ 14, 10, 22, 29, 6, 27, 19, 18, 6, 12, 8]
+
         public static int[] Encode(string str, int n)
         {
             int[] result = new int[str.Length]; // where to keep our result;
@@ -159,7 +159,7 @@ namespace AlgorithmChallenge
                 else
                 {
                     result += item + " ";
-                    
+
                 }
             }
             return result.Trim();
@@ -235,9 +235,9 @@ namespace AlgorithmChallenge
             Array.Sort(testRes);
             char[] originalRes = original.ToLower().ToCharArray();
             Array.Sort(originalRes);
-            for(int i =0; i<testRes.Length; i++)
+            for (int i = 0; i < testRes.Length; i++)
             {
-                if(testRes[i] != originalRes[i])
+                if (testRes[i] != originalRes[i])
                 {
                     return false;
                 }
@@ -265,7 +265,7 @@ namespace AlgorithmChallenge
             }
             Array.Sort(arr); // Sort array in ascending order.
             Array.Reverse(arr); // reverse array
-            for (int i = 0; i<arr.Length - 1; i++)
+            for (int i = 0; i < arr.Length - 1; i++)
             {
                 var curr = arr[i] - arr[i + 1];
                 sum += curr;
@@ -359,7 +359,7 @@ namespace AlgorithmChallenge
         public static string[] Last(string x)
         {
             var newArray = x.Split(" ");
-            var OrderedArr = newArray.OrderBy(x=> x[x.Length - 1]);
+            var OrderedArr = newArray.OrderBy(x => x[x.Length - 1]);
             var result = OrderedArr.ToArray();
             return result;
         }
@@ -375,6 +375,96 @@ namespace AlgorithmChallenge
             var orderedArr = newArr.OrderBy(x => x.Last());
             var result = orderedArr.ToArray();
             return result;
+        }
+
+        //Complete the function that takes two integers(a, b, where a < b) and return an array of all integers between the input parameters, including them.
+        //For example:
+        //a = 1
+        //b = 4
+        //-- > [1, 2, 3, 4]
+
+        public static int[] Between(int a, int b)
+        {
+            List<int> result = new List<int>();
+            for (int i = a; i <= b; i++)
+            {
+                result.Add(i);
+            }
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Alternative solutions
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+
+        public static int[] Between1(int a, int b)
+        {
+
+            List<int> result = new List<int>();
+            while (a <= b)
+            {
+                result.Add(a);
+                a++;
+            }
+            return result.ToArray();
+        }
+
+        //Complete the solution so that it splits the string into pairs of two characters.If the string contains an odd number of characters then it should replace the missing second character of the final pair with an underscore ('_').
+        //Examples:
+        //* 'abc' =>  ['ab', 'c_']
+        //* 'abcdef' => ['ab', 'cd', 'ef']
+        public static string[] Solution(string str)
+        {
+            if (str.Length % 2 != 0)
+            {
+                str += "_";
+            }
+
+            List<string> result = new List<string>();
+            for (int i = 0; i < str.Length; i += 2)
+            {
+                char curr = str[i];
+                char next = str[i + 1];
+                result.Add(curr + "" + next);
+            }
+            return result.ToArray();
+        }
+
+        //Oh no! Ghosts have reportedly swarmed the city.It's your job to get rid of them and save the day!
+
+        //In this kata, strings represent buildings while whitespaces within those strings represent ghosts.
+
+        //So what are you waiting for? Return the building(string) without any ghosts(whitespaces)!
+
+        //Example:
+        //ghostBusters("Sky scra per");
+        //Should return: "Skyscraper"
+        //If the building contains no ghosts, return the string: "You just wanted my autograph didn't you?"
+        public static string GhostBusters(string building)
+        {
+            if (!building.Contains(" "))
+            {
+                return "You just wanted my autograph didn't you?";
+            }
+            return building.Replace(" ", "");
+        }
+
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="building"></param>
+        /// <returns></returns>
+        public static string GhostBusters1(string building)
+        {
+            if (!building.Contains(" "))
+            {
+                return "You just wanted my autograph didn't you?";
+            }
+
+            return String.Concat(building.Where(c => !Char.IsWhiteSpace(c)));
         }
     }
 }
