@@ -137,11 +137,44 @@ namespace AlgorithmChallenge
             return result.Trim();
         }
 
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="sentence"></param>
+        /// <returns></returns>
+        public static string SpinWords2(string sentence)
+        {
+            string result = string.Empty;
+            string[] newArr = sentence.Split(" ");
+            foreach (string item in newArr)
+            {
+                if (item.Length >= 5)
+                {
+                    for (int i = item.Length - 1; i >= 0; i--)
+                    {
+                        result += item[i];
+                    }
+                    result += " ";
+                }
+                else
+                {
+                    result += item + " ";
+                    
+                }
+            }
+            return result.Trim();
+        }
+
+
 
         //A palindrome is a word, phrase, number, or other sequence of characters which reads the same backward or forward.
         //This includes capital letters, punctuation, and word dividers.
         //Implement a function that checks if something is a palindrome. If the input is a number, convert it to string first.
-
+        //Example:
+        //isPalindrome("anna")   ==> true
+        //isPalindrome("walter") ==> false
+        //isPalindrome(12321)    ==> true
+        //isPalindrome(123456)   ==> false
 
         public static bool IsPalindrome(object line)
         {
@@ -178,5 +211,171 @@ namespace AlgorithmChallenge
                 return false;
             }
         }
+
+        //An anagram is the result of rearranging the letters of a word to produce a new word(see wikipedia).
+
+        //Note: anagrams are case insensitive
+
+        //Complete the function to return true if the two arguments given are anagrams of each other; return false otherwise.
+
+        //Examples
+        //"foefet" is an anagram of "toffee"
+
+        //"Buckethead" is an anagram of "DeathCubeK"
+
+
+        public static bool IsAnagram(string test, string original)
+        {
+            if (test.Length != original.Length)
+            {
+                return false;
+            }
+
+            char[] testRes = test.ToLower().ToCharArray();
+            Array.Sort(testRes);
+            char[] originalRes = original.ToLower().ToCharArray();
+            Array.Sort(originalRes);
+            for(int i =0; i<testRes.Length; i++)
+            {
+                if(testRes[i] != originalRes[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        //Your task is to sum the differences between consecutive pairs in the array in descending order.
+        //Example:
+        //[2, 1, 10]  -->  9
+        //In descending order: [10, 2, 1]
+
+        //Sum: (10 - 2) + (2 - 1) = 8 + 1 = 9
+
+        //If the array is empty or the array has only one element the result should be 0 (Nothing in Haskell, None in Rust).
+
+
+        public static int SumOfDifferences(int[] arr)
+        {
+            var sum = 0;
+            if (arr == null || arr.Length == 1)
+            {
+                return sum;
+            }
+            Array.Sort(arr); // Sort array in ascending order.
+            Array.Reverse(arr); // reverse array
+            for (int i = 0; i<arr.Length - 1; i++)
+            {
+                var curr = arr[i] - arr[i + 1];
+                sum += curr;
+            }
+            return sum;
+        }
+
+        //Your friend has been out shopping for puppies(what a time to be alive!)... He arrives back with multiple dogs, and you simply do not know how to respond!
+
+        //By repairing the function provided, you will find out exactly how you should respond, depending on the number of dogs he has.
+        //The number of dogs will always be a number and there will always be at least 1 dog.
+        //Note: The method below is part of the question
+
+        //public static string HowManyDalmatians(int n)
+        //{
+        //    List<string> dogs = new List<string>()
+        //    {
+        //        "Hardly any",
+        //        "More than a handful!",
+        //        "Woah that's a lot of dogs!",
+        //        "101 DALMATIONS!!!"
+        //    };
+        //    string respond = if (number <= 10) then dogs[0] elseif number <= 50 then dogs[1] elseif number = 101 then dogs[3] else dogs[2];
+        //    return respond;
+        //}
+
+        public static string HowManyDalmatians(int n)
+        {
+            if (n <= 10)
+            {
+                return "Hardly any";
+            }
+            else if (n <= 50)
+            {
+                return "More than a handful!";
+            }
+            else if (n == 101)
+            {
+                return "101 DALMATIONS!!!";
+            }
+            else
+            {
+                return "Woah that's a lot of dogs!";
+            }
+        }
+
+        /// <summary>
+        /// Alternative Solutions
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static string HowManyDalmatians2(int n)
+        {
+            if (n <= 10) return "Hardly any";
+            if (n <= 50) return "More than a handful!";
+            if (n == 101) return "101 DALMATIONS!!!";
+            return "Woah that's a lot of dogs!";
+        }
+
+        //You are creating a text-based terminal version of your favorite board game.
+        //In the board game, each turn has six steps that must happen in this order: roll the dice, move, combat, get coins, buy more health, and print status.
+        //You are using a library that already has the functions below.Create a function named main that calls the functions in the proper order.
+        //- `Combat`
+        //- `BuyHealth`
+        //- `GetCoins`
+        //- `PrintStatus`
+        //- `RollDice`
+        //- `Move`
+        /// <summary>
+        /// Solution below but commented
+        /// </summary>
+        //public static int Health = 100;
+        //public static int Position = 0;
+        //public static int Coins = 0;
+        //public static void PlayTurn()
+        //{
+        //    RollDice();
+        //    Move();
+        //    Combat();
+        //    GetCoins();
+        //    BuyHealth();
+        //    PrintStatus();
+
+        //}
+
+        //Given a string of words(x), you need to return an array of the words, sorted alphabetically by the final character in each.
+
+        //If two words have the same last letter, they returned array should show them in the order they appeared in the given string.
+
+        //All inputs will be valid.
+        public static string[] Last(string x)
+        {
+            var newArray = x.Split(" ");
+            var OrderedArr = newArray.OrderBy(x=> x[x.Length - 1]);
+            var result = OrderedArr.ToArray();
+            return result;
+        }
+
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static string[] Last2(string x)
+        {
+            string[] newArr = x.Split(" ");
+            var orderedArr = newArr.OrderBy(x => x.Last());
+            var result = orderedArr.ToArray();
+            return result;
+        }
     }
 }
+    
