@@ -466,6 +466,70 @@ namespace AlgorithmChallenge
 
             return String.Concat(building.Where(c => !Char.IsWhiteSpace(c)));
         }
+
+        //Write a function that receives two strings and returns n, where n is equal to the number of characters we should shift the first string forward to match the second.
+        //The check should be case sensitive.
+        //For instance, take the strings "fatigue" and "tiguefa". In this case, the first string has been rotated 5 characters forward to produce the second string, so 5 would be returned.
+        //If the second string isn't a valid rotation of the first string, the method returns -1.
+        //Examples:
+        //"coffee", "eecoff" => 2
+        //"eecoff", "coffee" => 4
+        //"moose", "Moose" => -1
+        //"isn't", "'tisn" => 2
+        //"Esham", "Esham" => 0
+        //"dog", "god" => -1
+        public static int ShiftedDiff(string first, string second)
+        {
+            if(first.Length - second.Length != 0) // 0r if(first.Length < second.Length)
+            {
+                return -1;
+            }
+
+            string full = second + second;
+            int number = full.IndexOf(first);
+            return number;
+
+        }
+
+        //Jaden Smith, the son of Will Smith, is the star of films such as The Karate Kid(2010) and After Earth(2013).
+        //Jaden is also known for some of his philosophy that he delivers via Twitter.
+        //When writing on Twitter, he is known for almost always capitalizing every word.
+        //For simplicity, you'll have to capitalize each word, check out how contractions are expected to be in the example below.
+        //Your task is to convert strings to how they would be written by Jaden Smith.
+        //The strings are actual quotes from Jaden Smith, but they are not capitalized in the same way he originally typed them.
+        //Example:
+        //Not Jaden-Cased: "How can mirrors be real if our eyes aren't real"
+        //Jaden-Cased:     "How Can Mirrors Be Real If Our Eyes Aren't Real"
+        public static string ToJadenCase(this string phrase)
+        {
+            var result = string.Empty;
+            var newArr = phrase.Split(' ');
+            foreach(var item in newArr)
+            {
+                var res = item.First().ToString().ToUpper() + item.Substring(1);
+                res += " ";
+                result += res;
+                
+            }
+            return result.Trim();
+        }
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="phrase"></param>
+        /// <returns></returns>
+        public static string ToJadenCase1(this string phrase)
+        {
+           string result = string.Empty;
+           string[] newArr = phrase.Split(' ');
+            foreach(string item in newArr)
+            {
+                string firstCapital = char.ToUpper(item[0]) + item[1..];  //item[1..] this is called range operator and it is the same thing as item.Substring(1)
+                firstCapital += " ";
+                result += firstCapital;
+            }
+            return result.Trim();
+        }
     }
 }
     
