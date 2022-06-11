@@ -178,7 +178,7 @@ namespace AlgorithmChallenge
 
         public static bool IsPalindrome(object line)
         {
-            var initial = line.ToString().ToLower();
+            var initial = line.ToString().ToLower(); //.we convert to string because we are not sure if the input is a number or string.
             var final = "";
             for (int i = initial.Length - 1; i >= 0; i--)
             {
@@ -480,7 +480,7 @@ namespace AlgorithmChallenge
         //"dog", "god" => -1
         public static int ShiftedDiff(string first, string second)
         {
-            if(first.Length - second.Length != 0) // 0r if(first.Length < second.Length)
+            if (first.Length - second.Length != 0) // 0r if(first.Length < second.Length)
             {
                 return -1;
             }
@@ -504,12 +504,12 @@ namespace AlgorithmChallenge
         {
             var result = string.Empty;
             var newArr = phrase.Split(' ');
-            foreach(var item in newArr)
+            foreach (var item in newArr)
             {
                 var res = item.First().ToString().ToUpper() + item.Substring(1);
                 res += " ";
                 result += res;
-                
+
             }
             return result.Trim();
         }
@@ -520,15 +520,307 @@ namespace AlgorithmChallenge
         /// <returns></returns>
         public static string ToJadenCase1(this string phrase)
         {
-           string result = string.Empty;
-           string[] newArr = phrase.Split(' ');
-            foreach(string item in newArr)
+            string result = string.Empty;
+            string[] newArr = phrase.Split(' ');
+            foreach (string item in newArr)
             {
                 string firstCapital = char.ToUpper(item[0]) + item[1..];  //item[1..] this is called range operator and it is the same thing as item.Substring(1)
                 firstCapital += " ";
                 result += firstCapital;
             }
             return result.Trim();
+        }
+
+        //Return the number(count) of vowels in the given string.
+        //We will consider a, e, i, o, u as vowels for this Kata(but not y).
+        //The input string will only consist of lower case letters and/or spaces.
+
+        public static int GetVowelCount(string str)
+        {
+            var vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+            var vowelCount = 0;
+            str.ToLower();
+            str.Trim();
+            vowelCount = str.ToLower().Count(x => vowels.Contains(x));
+            return vowelCount;
+        }
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static int GetVowelCount1(string str)
+        {
+            char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+            int vowelCount = 0;
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u')
+                {
+                    vowelCount++;
+                }
+            }
+            return vowelCount;
+        }
+
+
+        //Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+        //You may assume that each input would have exactly one solution, and you may not use the same element twice.
+        //You can return the answer in any order.
+
+        //Example 1:
+
+        //Input: nums = [2, 7, 11, 15], target = 9
+        //Output: [0,1]
+        //Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+        //Example 2:
+
+        //Input: nums = [3, 2, 4], target = 6
+        //Output: [1,2]
+        //Example 3:
+
+        //Input: nums = [3, 3], target = 6
+        //Output: [0,1]
+
+
+        //Constraints:
+
+        //2 <= nums.length <= 104
+        //-109 <= nums[i] <= 109
+        //-109 <= target <= 109
+        //Only one valid answer exists.
+
+        public static int[] NumberSum(int[] numbers, int target)
+        {
+            List<int> output = new List<int>();
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                for (int j = i + 1; j < numbers.Length; j++)
+                {
+                    if (numbers[i] + numbers[j] == target)
+                    {
+                        output.Add(i);
+                        output.Add(j);
+                    }
+                }
+            }
+            return output.ToArray();
+        }
+
+        //Consider the word "abode". We can see that the letter a is in position 1 and b is in position 2.
+        //In the alphabet, a and b are also in positions 1 and 2.
+        //Notice also that d and e in abode occupy the positions they would occupy in the alphabet, which are positions 4 and 5.
+        //Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for each word.
+        //For example:
+        //solve(["abode", "ABc", "xyzD"]) = [4, 3, 1]
+        //See test cases for more examples.
+        //Input will consist of alphabet characters, both uppercase and lowercase. No spaces.
+        public static List<int> Solve(List<string> arr)
+        {
+            List<int> result = new List<int>();
+            var alp = "abcdefghijklmnopqrstuvwxyz";
+            var count = 0;
+            foreach (string word in arr)
+            {
+                var lower = word.ToLower();
+                for (int i = 0; i < lower.Length; i++)
+                {
+                    if ((int)alp[i] == (int)word[i])
+                    {
+                        count++;
+                    }
+                }
+                result.Add(count);
+            }
+            return result;
+        }
+
+        public static List<int> Solve1(List<string> arr)
+        {
+            string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            List<int> counters = new List<int>();
+
+            foreach (var word in arr)
+            {
+                int count = 0;
+                for (int i = 0; i < word.Length; i++)
+                {
+                    if (word[i].ToString().ToLower() == alphabet[i].ToString())
+                        count++;
+                }
+
+                counters.Add(count);
+            }
+
+            return counters;
+        }
+        //        var result = new List<int>();
+
+        //            foreach (var word in arr)
+        //            {
+
+        //                var lower = word.ToLower();
+        //        var count = 0;
+        //                for (int i = 0; i<word.Length; i++)
+        //                {
+        //                  if (lower[i] == alphabet[i]) count++;  
+        //                }
+        //    result.Add(count);
+
+        //            }
+
+        //return result;
+
+
+        public static List<int> Solve2(List<string> arr)
+        {
+            string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            int count = 0;
+            List<int> result = new List<int>();
+            foreach (string item in arr)
+            {
+                var lowerCase = item.ToLower();
+                for (int i = 0; i < item.Length; i++)
+                {
+                    if (item[i] == alphabet[i])
+                    {
+                        count++;
+                    }
+                }
+                result.Add(count);
+            }
+
+            return result;
+        }
+
+     
+        //An acronym deliberately formed from a phrase whose initial letters spell out a particular word or words,
+        //either to create a memorable name or as a fanciful explanation of a word's origin."Biodiversity Serving Our Nation", or BISON
+        //(from https://en.oxforddictionaries.com/definition/backronym)
+        //Complete the function to create backronyms. Transform the given string (without spaces) to a backronym,
+        //using the preloaded dictionary and return a string of words, separated with a single space(but no trailing spaces).
+        //The keys of the preloaded dictionary are uppercase letters A-Z and the values are predetermined words, for example:
+        //dict['P'] == "perfect"
+        //Examples
+        //"dgm" ==> "disturbing gregarious mustache"
+        //"lkj" ==> "literal klingon joke"
+        public static string MakeBackronym(string s)
+        {
+            string backronym = String.Empty;
+            for (int i = 0; i < s.Length; i++)
+            {
+                var dict = "disturbing gregarious mustache"; //this is not part of it, I put it there to resolve the error in "dict"
+                string word = dict[s.ToUpper()[i]] + " "; // dic is having error becuase it is a foreign function.
+                backronym += word;
+            }
+            return backronym;
+        }
+
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string MakeBackronym2(string s)
+        {
+            string backronym = String.Empty;
+            for (int i = 0; i < s.Length; i++)
+            {
+                var dict = "disturbing gregarious mustache"; //this is not part of it, I put it there to resolve the error in "dict"
+                var upperCase = s.ToUpper()[i];
+                string word = dict[upperCase] + " "; // dic is having error becuase it is a foreign function.
+                backronym += word;
+            }
+            return backronym.Trim();
+        }
+
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string MakeBackronym3(string s)
+        {
+            var dict = "disturbing gregarious mustache"; //this is not part of it, I put it there to resolve the error in "dict"
+            string backronym = String.Empty;
+            var cap = s.ToUpper();
+            for (int i = 0; i < cap.Length; i++)
+            {
+                string word = dict[cap[i]] + " "; // dic is having error becuase it is a foreign function.
+                backronym += word;
+            }
+            return backronym.Trim();
+        }
+
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string MakeBackronym4(string s)
+        {
+            var dict = "disturbing gregarious mustache"; //this is not part of it, I put it there to resolve the error in "dict"
+            string backronym = String.Empty;
+            var cap = s.ToUpper();
+            foreach (var letter in cap)
+            {
+              
+                backronym += dict[letter] + " "; //  dic is having error becuase it is a foreign function.
+            }
+            return backronym.Trim();
+        }
+
+        //Covert a number string to a number
+        // input: "123", output: 123
+        public static int StringToInt(string str)
+        {
+            int result = 0;
+            for (int i = 0;i < str.Length; i++)
+            {
+                result = result * 10 + ((int)str[i] - 48);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static int StringToInt2(string str)
+        {
+            int result = 0;
+            //var character = str.ToArray(); not neccessary
+            foreach(var letter in str)
+            {
+                result = result * 10 + (int)char.GetNumericValue(letter);
+            }
+            return (int)result;
+        }
+
+        //Complete the solution so that it returns true if the first argument(string) passed in ends with the 2nd argument(also a string).
+        //Examples:
+        //solution('abc', 'bc') // returns true
+        //solution('abc', 'd') // returns false
+        public static bool Solution(string str, string ending)
+        {
+            var result = str.EndsWith(ending);
+            if(result)
+             return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="ending"></param>
+        /// <returns></returns>
+        public static bool Solution1(string str, string ending)
+        {
+           return str.EndsWith(ending);
+
         }
     }
 }

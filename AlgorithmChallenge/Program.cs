@@ -16,7 +16,17 @@ namespace AlgorithmChallenge
             //var result = AlgorithmQuestions.IsAnagram("value", "lueva");
             //Console.WriteLine(result);
             //AlgorithmQuestions.SumOfDifferences();
+            // int[] num = { 2, 7, 11, 15 };
+            //var result =  AlgorithmQuestions.NumberSum(num, 17);
 
+            // foreach (var item in result)
+            // {
+            //     Console.WriteLine(item);
+            // }
+            //var result = AlgorithmQuestions.StringToInt2("790");
+            //Console.WriteLine(result);
+            var result = AlgorithmQuestions.Solution("end", "yt");
+            Console.WriteLine(result);
         }
 
     }
