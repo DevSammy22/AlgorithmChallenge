@@ -1426,7 +1426,11 @@ namespace AlgorithmChallenge
             return Convert.ToInt32(result);
         }
 
-        //Alternative
+        /// <summary>
+        /// Alternative
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int Number2(int value)
         {
             int result = 0;
