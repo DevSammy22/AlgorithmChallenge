@@ -822,6 +822,931 @@ namespace AlgorithmChallenge
            return str.EndsWith(ending);
 
         }
+
+
+
+        //Complete the function/method so that it returns the url with anything after the anchor (#) removed.
+        //Example:
+        //"www.codewars.com#about" --> "www.codewars.com"
+        //"www.codewars.com?page=1" -->"www.codewars.com?page=1"
+
+        public static string RemoveUrlAnchor(string url)
+        {
+            int index = url.IndexOf("#");
+            if (index == -1)
+            {
+                return url;
+            }
+            string result = url.Substring(0, index);
+            return result;
+        }
+
+        // Usually when you buy something, you're asked whether your credit card number,
+        // phone number or answer to your most secret question is still correct.
+        // However, since someone could look over your shoulder, you don't want that shown on your screen. Instead, we mask it.
+        // Your task is to write a function maskify, which changes all but the last four characters into '#'.
+        // "4556364607935616" --> "############5616"
+        //  "64607935616" -->      "#######5616"
+        //            "1" -->                "1"
+        //             "" -->                 ""
+
+        // // "What was the name of your first pet?"
+
+        // "Skippy" --> "##ippy"
+
+        // "Nananananananananananananananana Batman!"
+        // -->
+        // "####################################man!"
+
+        public static string Maskify(string cc)
+        {
+
+            if (cc.Length <= 4 || cc == null) // or if(cc.Length <= 4 || cc == "")
+            {
+                return cc;
+            }
+
+            string masked = new string('#', cc.Length - 4);
+            var last = cc.Substring(cc.Length - 4);
+            return masked + last;
+
+        }
+
+        //    An isogram is a word that has no repeating letters, consecutive or non-consecutive.
+        //    Implement a function that determines whether a string that contains only letters is an isogram.
+        //    Assume the empty string is an isogram. Ignore letter case.
+        // "Dermatoglyphics" --> true
+        // "aba" --> false
+        // "moOse" --> false (ignore letter case)
+
+        public static bool IsIsogram(string str)
+        {
+            if (str == "")
+            {
+                return true;
+            }
+            string lower = str.ToLower();
+            for (int i = 0; i < lower.Length; i++)
+            {
+                for (int j = i + 1; j < lower.Length; j++)
+                {
+                    if (lower[i] == lower[j])
+                    {
+                        return false;
+                    }
+                    //return true;
+                }
+            }
+            return true;
+        }
+
+
+        // Given a string made up of letters a, b, and/or c, switch the position
+        // of letters a and b (change a to b and vice versa). Leave any incidence of c untouched.
+        // Example:
+        // 'acb' --> 'bca'
+        // 'aabacbaa' --> 'bbabcabb'
+
+        public static string Switcheroo(string x)
+        {
+            string result = "";
+            string lower = x.ToLower();
+            for (int i = 0; i < lower.Length; i++)
+            {
+                var letter = lower[i];
+                if (letter == 'a')
+                {
+                    result += 'b';
+                }
+                else if (letter == 'b')
+                {
+                    result += 'a';
+                }
+                else
+                {
+                    result += letter;
+                    //or result += 'c';
+                }
+            }
+            return result;
+
+        }
+
+        // Deoxyribonucleic acid (DNA) is a chemical found in the nucleus of 
+        // cells and carries the "instructions" for the development and functioning of living organisms.
+        // If you want to know more: http://en.wikipedia.org/wiki/DNA
+        // In DNA strings, symbols "A" and "T" are complements of each other, as "C" and "G". Your function receives one side of the DNA (string, except for Haskell); you need to return the other complementary side. DNA strand is never empty or there is no DNA at all (again, except for Haskell).
+        // More similar exercise are found here: http://rosalind.info/problems/list-view/ (source)
+        // Example: (input --> output)
+        // "ATTGC" --> "TAACG"
+        // "GTAT" --> "CATA"
+        public static string MakeComplement(string dna)
+        {
+            string result = "";
+            foreach (var item in dna)
+            {
+                if (item == 'A')
+                {
+                    result += 'T';
+                }
+                else if (item == 'T')
+                {
+                    result += 'A';
+                }
+                else if (item == 'C')
+                {
+                    result += 'G';
+                }
+                else if (item == 'G')
+                {
+                    result += 'C';
+                }
+            }
+            return result;
+
+        }
+
+        //   In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
+        //   Examples
+        //   Kata.HighAndLow("1 2 3 4 5");  // return "5 1"
+        //   Kata.HighAndLow("1 2 -3 4 5"); // return "5 -3"
+        //   Kata.HighAndLow("1 9 3 4 -5"); // return "9 -5"
+
+        public static string HighAndLow(string numbers)
+        {
+            int max = int.MinValue;
+            int min = int.MaxValue;
+            string[] numSplit = numbers.Split(" ");
+            for (int i = 0; i < numSplit.Length; i++)
+            {
+                var num = int.Parse(numSplit[i]);
+                if (num > max)
+                {
+                    max = num;
+                }
+                if (num < min)
+                {
+                    min = num;
+                }
+            }
+            return max + " " + min;
+        }
+
+        //   Write a program to determine if a string contains only unique characters.
+        //   Return true if it does and false otherwise.
+        //   The string may contain any of the 128 ASCII characters.
+        //   Characters are case-sensitive, e.g. 'a' and 'A' are considered different characters.
+
+        public static bool HasUniqueChars(string str)
+        {
+            var lower = str.ToLower();
+            for (int i = 0; i < lower.Length; i++)
+            {
+                for (int j = i + 1; j < lower.Length; j++)
+                {
+                    if (lower[i] == lower[j])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        //   Enjoying your holiday, you head out on a scuba diving trip!
+        //   Disaster!! The boat has caught fire!!
+        //   You will be provided a string that lists many boat related items.
+        //   If any of these items are "Fire" you must spring into action.
+        //   Change any instance of "Fire" into "~~". Then return the string.
+        //   Go to work!
+        public static string FireFight(string s)
+        {
+            return s.Replace("Fire", "~~");
+
+        }
+
+        //Alternative
+
+        public static string FireFight2(string s)
+        {
+            string[] arr = s.Split(" ");
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == "Fire")
+                {
+                    arr[i] = "~~";
+                }
+            }
+            return string.Join(" ", arr);
+        }
+
+        // Given an array of numbers (in string format), you must return a string.
+        // The numbers correspond to the letters of the alphabet in reverse order: a=26, z=1 etc.
+        // You should also account for '!', '?' and ' ' that are represented by '27', '28' and '29' respectively.
+        // All inputs will be valid.
+
+        public static string Switcher(string[] x)
+        {
+            var result = "";
+            var alpha = "-zyxwvutsrqponmlkjihgfedcba!? ";
+            for (int i = 0; i < x.Length; i++)
+            {
+                var num = alpha[int.Parse(x[i])];
+                result += num;
+
+            }
+            return result;
+
+        }
+        //Alternative
+        public static string Switcher2(string[] x)
+        {
+            var result = "";
+            var alpha = "zyxwvutsrqponmlkjihgfedcba!? ";
+            for (int i = 0; i < x.Length; i++)
+            {
+                var num = alpha[int.Parse(x[i]) - 1];
+                result += num;
+
+            }
+            return result;
+        }
+
+        //Alternative
+        public static string Switcher3(string[] x)
+        {
+            var result = "";
+            var alpha = "-zyxwvutsrqponmlkjihgfedcba!? ";
+            foreach (string a in x)
+            {
+                var res = alpha[int.Parse(a)];
+                result += res;
+            }
+            return result;
+        }
+
+        // Your car is old, it breaks easily. The shock absorbers are gone
+        // and you think it can handle about 15 more bumps before it dies totally.
+        // Unfortunately for you, your drive is very bumpy!
+        // Given a string showing either flat road (_) or bumps (n).
+        // If you are able to reach home safely by encountering 15 bumps or less, return Woohoo!, otherwise return Car Dead
+
+        public static string Bump(string input)
+        {
+            int count = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == 'n')
+                {
+                    count++;
+                }
+            }
+            if (count <= 15)
+            {
+                return "Woohoo!";
+            }
+            else
+            {
+                return "Car Dead";
+            }
+        }
+
+        public static string Gordon(string a)
+        {
+            List<string> result = new List<string>();
+            var cap = a.ToUpper();
+            var arr = cap.Split(" ");
+
+            foreach (var word in arr)
+            {
+                var res = word.Replace("A", "@").Replace("E", "*").Replace("I", "*").Replace("O", "*").Replace("U", "*") + "!!!!";
+
+                result.Add(res);
+            }
+            return string.Join(" ", result);
+
+        }
+
+
+        // Given a number, Find if it is Tidy or not .
+        // Number passed is always Positive .
+        // Return the result as a Boolean
+
+        // Input >> Output Examples
+        // tidyNumber (12) ==> return (true)
+        // Explanation:
+        // The number's digits { 1 , 2 } are in non-Decreasing Order (i.e) 1 <= 2 .
+
+        // tidyNumber (32) ==> return (false)
+        // Explanation:
+        // The Number's Digits { 3, 2} are not in non-Decreasing Order (i.e) 3 > 2 .
+
+        // tidyNumber (1024) ==> return (false)
+        // Explanation:
+        // The Number's Digits {1 , 0, 2, 4} are not in non-Decreasing Order as 0 <= 1 .
+
+        // tidyNumber (13579) ==> return (true)
+        // Explanation:
+        // The number's digits {1 , 3, 5, 7, 9} are in non-Decreasing Order .
+
+        // tidyNumber (2335) ==> return (true)
+        // Explanation:
+        // The number's digits {2 , 3, 3, 5} are in non-Decreasing Order , Note 3 <= 3
+
+        public static bool TidyNumber(int n)
+        {
+            var res = n.ToString();
+            for (int i = 0; i < res.Length; i++)
+            {
+                for (int j = i + 1; j < res.Length; j++)
+                {
+                    if (res[i] > res[j])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        //Alternative
+
+        public static bool TidyNumber1(int n)
+        {
+            //Do Some Magic
+            var res = n.ToString();
+            for (int i = 0; i < res.Length - 1; i++)
+            {
+
+                if (res[i] > res[i + 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+
+        }
+
+
+        // Determine the total number of digits in the integer (n>=0) given as input to the function.
+        // For example, 9 is a single digit, 66 has 2 digits and 128685 has 6 digits. Be careful to avoid overflows/underflows.
+        // All inputs will be valid.
+
+        public static int Digits(ulong n)
+        {
+
+            var res = n.ToString();
+            int count = 0;
+            foreach (var item in res)
+            {
+                count++;
+            }
+            return count;
+        }
+
+        //Alternative
+
+        public static int Digits1(ulong n)
+        {
+            var res = n.ToString();
+            return res.Length;
+
+        }
+
+
+        // You are going to be given a word. Your job is to return the middle character of the word. If the word's length is odd, return the middle character. If the word's length is even, return the middle 2 characters.
+        // #Examples:
+        // Kata.getMiddle("test") should return "es"
+        // Kata.getMiddle("testing") should return "t"
+        // Kata.getMiddle("middle") should return "dd"
+        // Kata.getMiddle("A") should return "A"
+
+        public static string GetMiddle(string s)
+        {
+
+            if (s.Length == 1)
+            {
+                return s;
+            }
+
+            if (s.Length % 2 == 0)
+            {
+                return s.Substring(((s.Length / 2) - 1), 2);
+            }
+            else
+            {
+                return s.Substring((s.Length / 2), 1);
+            }
+        }
+
+        // Given a mixed array of number and string representations of integers,
+        // add up the string integers and subtract this from the total of the non-string integers.
+        // Return as a number.
+
+
+        public static int DivCon(Object[] objArray)
+        {
+            int strings = 0, ints = 0;
+            foreach (var item in objArray)
+            {
+                if (item is string)
+                {
+                    strings += int.Parse(item.ToString());
+                }
+                else if (item is int)
+                {
+                    ints += (int)(item);
+                }
+            }
+            return (ints - strings);
+        }
+
+        // This time no story, no theory. The examples below show you how to write function accum:
+        // Examples:
+        // accum("abcd") -> "A-Bb-Ccc-Dddd"
+        // accum("RqaEzty") -> "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+        // accum("cwAt") -> "C-Ww-Aaa-Tttt"
+        // The parameter of accum is a string which includes only letters from a..z and A..Z.
+
+
+        public static String Accum(string s)
+        {
+            string result = "";
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (result.Length > 0)
+                {
+                    result += "-";
+                }
+                string cap = s.ToUpper();
+                result += cap[i];
+                for (int j = 0; j < i; j++)
+                {
+                    string lower = s.ToLower();
+                    result += lower[i];
+
+                    //OR result += char.ToLower(cap[i]);
+                }
+            }
+            return result;
+        }
+
+        public static String Accum1(string s)
+        {
+            string result = "";
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (result.Length > 0)
+                {
+                    result += "-";
+                }
+                result += char.ToUpper(s[i]);
+                for (int j = 0; j < i; j++)
+                {
+                    result += char.ToLower(s[i]);
+                }
+            }
+            return result;
+        }
+
+        //Alternative
+        public static String Accum2(string s)
+        {
+            string result = "";
+            for (int i = 0; i < s.Length; i++)
+            {
+
+                result += char.ToUpper(s[i]);
+                for (int j = 0; j < i; j++)
+                {
+                    result += char.ToLower(s[i]);
+                }
+                if (i != s.Length - 1)
+                {
+                    result += "-";
+                }
+            }
+            return result;
+        }
+
+        // Suzuki needs help lining up his students!
+        // Today Suzuki will be interviewing his students to ensure they are progressing in their training. He decided to schedule the interviews based on the length of the students name in descending order. The students will line up and wait for their turn.
+        // You will be given a string of student names. Sort them and return a list of names in descending order.
+        // Here is an example input:
+        // string = 'Tadashi Takahiro Takao Takashi Takayuki Takehiko Takeo Takeshi Takeshi'
+        // Here is an example return from your function:
+        //  lst = ['Takehiko',
+        //         'Takayuki',
+        //         'Takahiro',
+        //         'Takeshi',
+        //         'Takeshi',
+        //         'Takashi',
+        //         'Tadashi',
+        //         'Takeo',
+        //         'Takao']
+        // Names of equal length will be returned in reverse alphabetical order (Z->A) such that:
+        // string = "xxa xxb xxc xxd xa xb xc xd"
+        // Returns
+        // ['xxd', 'xxc', 'xxb', 'xxa', 'xd', 'xc', 'xb', 'xa']
+
+        public static String[] LineupStudents(String a)
+        {
+            string[] names = a.Split(" ");
+            Array.Sort(names);
+            names = names.OrderBy(x => x.Length).ToArray();
+            Array.Reverse(names);
+            return names;
+        }
+
+        // Given the triangle of consecutive odd numbers:
+        //              1
+        //           3     5
+        //        7     9    11
+        //    13    15    17    19
+        // 21    23    25    27    29
+        // ...
+        // Calculate the sum of the numbers in the nth row of this triangle (starting at index 1) e.g.: (Input --> Output)
+        // 1 -->  1
+        // 2 --> 3 + 5 = 8
+
+        public static long RowSumOddNumbers(long n)
+        {
+            return (long)Math.Pow(n, 3);
+        }
+
+        public static long RowSumOddNumbers1(long n)
+        {
+            return n * n * n;
+        }
+
+
+
+
+        // Given an array/list [] of integers , Construct a product array Of same size Such
+        // That prod[i] is equal to The Product of all the elements of Arr[] except Arr[i].
+        // Notes
+        // Array/list size is at least 2 .
+        // Array/list's numbers Will be only Positives
+        // Repetition of numbers in the array/list could occur.
+        // Input >> Output Examples
+        // productArray ({12,20}) ==>  return {20,12}
+        // Explanation:
+        // The first element in prod [] array 12 is the product of all array's elements except the first element
+        // The second element 20 is the product of all array's elements except the second element .
+        // productArray ({1,5,2}) ==> return {10,2,5}
+        // productArray ({10,3,5,6,2}) return ==> {180,600,360,300,900}
+
+        public static int[] ProductArray(int[] array)
+        {
+            int[] result = new int[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                int product = array[0];
+                for (int j = 1; j < array.Length; j++)
+                {
+                    product *= array[j];
+                }
+                result[i] = product / array[i];
+            }
+            return result;
+        }
+
+
+        //Input = 123; Output = 321;
+        public static int Number(int value)
+        {
+            string result = "";
+            string res = value.ToString();
+            for (int i = res.Length - 1; i >= 0; i--)
+            {
+                result += res[i];
+            }
+
+            return Convert.ToInt32(result);
+        }
+
+        //Alternative
+        public static int Number2(int value)
+        {
+            int result = 0;
+            while (value != 0)
+            {
+                int a = value % 10;
+                value = value / 10;
+                result = result * 10 + a;
+            }
+            return result;
+        }
+
+
+
+        // The Stanton measure of an array is computed as follows:
+        // count the number of occurences for value 1 in the array.
+        // Let this count be n. The Stanton measure is the number of times that n appears in the array.
+        // Write a function which takes an integer array and returns its Stanton measure.
+        // Examples
+        // The Stanton measure of [1, 4, 3, 2, 1, 2, 3, 2] is 3, because 1 occurs 2 times in the array and 2 occurs 3 times.
+        // The Stanton measure of [1, 4, 1, 2, 11, 2, 3, 1] is 1, because 1 occurs 3 times in the array and 3 occurs 1 time.
+
+        public static int StantonMeasure(int[] arr)
+        {
+            //
+            int count = 0;
+            int counti = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == 1)
+
+                {
+                    count++;
+                }
+            }
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == count)
+                {
+                    counti++;
+                }
+            }
+            return counti;
+        }
+
+        // Your team is writing a fancy new text editor
+        // and you've been tasked with implementing the line numbering.
+        // Write a function which takes a list of strings and returns each line prepended by the correct number.
+        // The numbering starts at 1. The format is n: string. Notice the colon and space in between.
+        // Examples: (Input --> Output)
+        // [] --> []
+        // ["a", "b", "c"] --> ["1: a", "2: b", "3: c"]
+
+        public static List<string> Number(List<string> lines)
+        {
+            //your code goes here
+            List<string> result = new List<string>();
+            for (int i = 0; i < lines.Count; i++)
+            {
+                var res = (i + 1) + ": " + lines[i];
+                result.Add(res);
+            }
+            return result;
+        }
+
+        public static List<string> Number2(List<string> lines)
+        {
+            //your code goes here
+            List<string> result = new List<string>();
+            if (lines.Count == 0)
+            {
+                return result;
+            }
+
+            for (int i = 0; i < lines.Count; i++)
+            {
+                var res = (i + 1) + ": " + lines[i];
+                result.Add(res);
+            }
+
+            return result;
+        }
+
+        // You will be given an array and a limit value.
+        // You must check that all values in the array are below or equal to the limit value.
+        // If they are, return true. Else, return false.
+        // You can assume all values in the array are numbers.
+        public static bool SmallEnough(int[] a, int limit)
+        {
+            var result = a.All(x => x <= limit);
+            return result;
+
+        }
+
+        public static bool SmallEnough1(int[] a, int limit)
+        {
+            bool result = a.All(x => x <= limit);
+            if (result) return true;
+            return false;
+        }
+
+        public static bool SmallEnough2(int[] a, int limit)
+        {
+            List<int> result = new List<int>();
+            foreach (var item in a)
+            {
+                if (item <= limit)
+                {
+                    result.Add(item);
+                }
+            }
+
+            if (a.Length == result.Count)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
+        // Given an array of integers. Find the maximum product obtained from multiplying 2 adjacent numbers in the array.
+        // Notes
+        // Array/list size is at least 2.
+        // Array/list numbers could be a mixture of positives, negatives also zeroes .
+        // Input >> Output Examples
+        // adjacentElementsProduct([1, 2, 3]); ==> return 6
+        // Explanation:
+        // The maximum product obtained from multiplying 2 * 3 = 6, and they're adjacent numbers in the array.
+        // adjacentElementsProduct([9, 5, 10, 2, 24, -1, -48]); ==> return 50
+        // Explanation:
+        // Max product obtained from multiplying 5 * 10  =  50 .
+        // adjacentElementsProduct([-23, 4, -5, 99, -27, 329, -2, 7, -921])  ==>  return -14
+        // Explanation:
+        // The maximum product obtained from multiplying -2 * 7 = -14, and they're adjacent numbers in the array.
+
+        public static int AdjacentElementsProduct(int[] array)
+        {
+            //int[] result = new int[array.Length];
+            List<int> result = new List<int>();
+            int product = 1;
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                product = array[i] * array[i + 1];
+                result.Add(product);
+
+            }
+            return result.Max();
+        }
+
+
+        // Given an array of ones and zeroes, convert the equivalent binary value to an integer.
+        // Eg: [0, 0, 0, 1] is treated as 0001 which is the binary representation of 1.
+        // Examples:
+        // Testing: [0, 0, 0, 1] ==> 1
+        // Testing: [0, 0, 1, 0] ==> 2
+        // Testing: [0, 1, 0, 1] ==> 5
+        // Testing: [1, 0, 0, 1] ==> 9
+        // Testing: [0, 0, 1, 0] ==> 2
+        // Testing: [0, 1, 1, 0] ==> 6
+        // Testing: [1, 1, 1, 1] ==> 15
+        // Testing: [1, 0, 1, 1] ==> 11
+        // However, the arrays can have varying lengths, not just limited to 4.
+
+        public static int binaryArrayToNumber(int[] BinaryArray)
+        {
+            string result = String.Empty;
+            foreach (var item in BinaryArray)
+            {
+                result += item;
+                //Or result += item.ToString();
+            }
+
+            return Convert.ToInt32(result, 2);
+        }
+
+
+        // Create a function that returns the sum of the two lowest positive
+        // numbers given an array of minimum 4 positive integers. No floats or non-positive integers will be passed.
+        // For example, when an array is passed like [19, 5, 42, 2, 77], the output should be 7.
+        // [10, 343445353, 3453445, 3453545353453] should return 3453455.
+
+        public static int sumTwoSmallestNumbers(int[] numbers)
+        {
+            Array.Sort(numbers);
+            return (numbers[0] + numbers[1]);
+        }
+
+        public static int sumTwoSmallestNumbers1(int[] numbers)
+        {
+            var result = numbers.OrderBy(i => i).ToArray();
+            return result[0] + result[1];
+        }
+
+        public static int sumTwoSmallestNumbers2(int[] numbers)
+        {
+            var sorted = numbers.ToList();
+            sorted.Sort();
+            return (sorted[0] + sorted[1]);
+        }
+
+        // Given a list of integers, determine whether the sum of its elements is odd or even.
+        // Give your answer as a string matching "odd" or "even".
+        // If the input array is empty consider it as: [0] (array with a zero).
+
+        // Examples:
+        // Input: [0]
+        // Output: "even"
+
+        // Input: [0, 1, 4]
+        // Output: "odd"
+
+        // Input: [0, -1, -5]
+        // Output: "even"
+
+        public static string OddOrEven(int[] array)
+        {
+            int sum = 0;
+            foreach (var item in array)
+            {
+                sum += item;
+            }
+
+            if (sum % 2 == 0)
+            {
+                return "even";
+            }
+            return "odd";
+        }
+
+        // Create the function consecutive(arr) that takes an array of integers and
+        // return the minimum number of integers needed to make the
+        // contents of arr consecutive from the lowest number to the highest number.
+        // For example:
+        // If arr contains [4, 8, 6] then the output should be 2
+        // because two numbers need to be added to the array (5 and 7) to make
+        // it a consecutive array of numbers from 4 to 8. Numbers in arr will be unique.
+
+        public static int Consecutive(int[] arr)
+        {
+            if (arr.Length < 2)
+                return 0;
+            var result = arr.Max() - arr.Min() - arr.Length + 1;
+            // Or var result = arr.Max() - arr.Min() + 1 - arr.Length;
+            return result;
+        }
+
+
+        // Write a function that can return the smallest value of an array or the index of that value.
+        // The function's 2nd parameter will tell whether it should return the value or the index.
+        // Assume the first parameter will always be an array filled with at least 1 number and no duplicates.
+        // Assume the second parameter will be a string holding one of two values: 'value' and 'index'.
+
+        // min([1,2,3,4,5], 'value') // => 1
+        // min([1,2,3,4,5], 'index') // => 0
+
+        public static int FindSmallest(int[] numbers, string toReturn)
+        {
+            int min = numbers[0];
+            int index = 0;
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                if (numbers[i] < min)
+                {
+                    min = numbers[i];
+                    index = i;
+                }
+            }
+
+            if (toReturn == "value")
+            {
+                return min;
+            }
+            else
+            {
+                return index;
+            }
+
+        }
+
+
+        // Given an array/list [] of n integers , find maximum triplet sum in the array Without duplications .
+        // Notes :
+        // Array/list size is at least 3 .
+        // Array/list numbers could be a mixture of positives , negatives and zeros .
+        // Repetition of numbers in the array/list could occur , So (duplications are not included when summing).
+        // Input >> Output Examples
+        // 1- maxTriSum ({3,2,6,8,2,3}) ==> return (17)
+        // Explanation:
+        // As the triplet that maximize the sum {6,8,3} in order , their sum is (17)
+        // Note : duplications are not included when summing , (i.e) the numbers added only once .
+        // 2- maxTriSum ({2,1,8,0,6,4,8,6,2,4}) ==> return (18)
+        // Explanation:
+        // As the triplet that maximize the sum {8, 6, 4} in order , their sum is (18) ,
+        // Note : duplications are not included when summing , (i.e) the numbers added only once .
+        // 3- maxTriSum ({-7,12,-7,29,-5,0,-7,0,0,29}) ==> return (41)
+        // Explanation:
+        // As the triplet that maximize the sum {12 , 29 , 0} in order , their sum is (41) ,
+        // Note : duplications are not included when summing , (i.e) the numbers added only once .
+
+
+        public static int MaxTriSum(int[] a)
+        {
+            List<int> result = new List<int>();
+            Array.Sort(a);
+            Array.Reverse(a);
+            foreach (var item in a)
+            {
+                if (!result.Contains(item))
+                {
+                    result.Add(item);
+                }
+            }
+            if (result.Count < 3)
+            {
+                return 0;
+            }
+            return result[0] + result[1] + result[2];
+        }
     }
 }
     
