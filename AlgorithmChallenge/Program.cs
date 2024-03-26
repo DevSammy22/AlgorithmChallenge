@@ -25,7 +25,8 @@ namespace AlgorithmChallenge
             // }
             //var result = AlgorithmQuestions.StringToInt2("790");
             //Console.WriteLine(result);
-            var result = AlgorithmQuestions.Solution("end", "yt");
+            //var result = AlgorithmQuestions.Solution("end", "yt");
+            var result = AlgorithmQuestions.TotalPoints(new[] { "3:1", "2:2", "0:1" });
             Console.WriteLine(result);
         }
 
